@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yesteryear&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@400..700&family=Inter:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  :root{
+      --Black-color:#0f0f0f;
+      --White-color:#FFFFFF;
+      --gray-color:#7d7d7d;
+      --purple-color: #8a658d;
+      --light-purple-color: #bcacbc;
+  }
+  html{
+      scroll-behavior: smooth;
+  }
+  body{
+      position:relative;
+  } 
+  a{
+      text-decoration: none;
+  }
+  a:hover{
+      color: var(--purple-color);
+      cursor: pointer;
+  }
+  nav ul {
+      list-style: none;
+  }
+  
+  ul li{
+      font-family: "Edu NSW ACT Foundation", cursive;
+  }
+  .flex-bw{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+  .flex-al-c{
+      display: flex;
+      align-items: center;
+  }
+  .flex-col{
+      display: flex;
+      flex-direction: column;
+  }
+  .flex-center{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .pointer{
+      cursor:pointer
+  }
+  .container{
+      padding: 48px 60px 17px 60px;
+  }
+  
+  
