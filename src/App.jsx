@@ -5,8 +5,8 @@ import Create from './Pages/Create';
 import MainLayout from "./Component/MainLayout/MainLayout";
 import AuthProvider from "./context/AuthContext";
 import RequireAuth from "./context/RequireAuth";
-import Login from "./Component/Login";
-import Signup from "./Component/Signup";
+import Login from "./Component/Auth/Login";
+import Signup from "./Component/Auth/Signup";
 
 function App() {
   
