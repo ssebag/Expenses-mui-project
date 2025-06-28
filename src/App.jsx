@@ -3,17 +3,42 @@ import './App.css'
 import Home from './Pages/Home';
 import Create from './Pages/Create';
 import MainLayout from "./Component/MainLayout/MainLayout";
+import AuthProvider from "./context/AuthContext";
+import RequireAuth from "./context/RequireAuth";
+import Login from "./Component/Login";
+import Signup from "./Component/Signup";
 
 function App() {
   
   return (
     <div>
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<Create />} />
-        </Routes>
-      </MainLayout>
+    
+          <AuthProvider>
+            <Routes>
+            <Route
+                path="/"
+                element={
+                  <RequireAuth>
+                    <MainLayout>
+                       <Home />
+                    </MainLayout>
+                  </RequireAuth>
+                }
+              />
+               <Route
+                path="/create"
+                element={
+                  <RequireAuth>
+                    <MainLayout>
+                      <Create />
+                    </MainLayout>
+                  </RequireAuth>
+                }
+              />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
+          </Routes>
+          </AuthProvider>
     </div>
   )
 }

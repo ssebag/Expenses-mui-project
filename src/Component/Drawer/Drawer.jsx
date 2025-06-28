@@ -4,10 +4,19 @@ import {AppBar,Box, CssBaseline, Divider, Drawer, IconButton, List, ListItem, Li
 import MenuIcon from '@mui/icons-material/Menu';
 import { Items } from './items'
 import { useNavigate } from 'react-router-dom';
+import { Logout } from '@mui/icons-material';
 
 const drawerWidth = 240;
 
 function ResponsiveDrawer(props) {
+
+  
+  async function handleLogout() {
+      navigate("/login");
+  
+  }
+
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
@@ -45,6 +54,14 @@ function ResponsiveDrawer(props) {
             </ListItemButton>
           </ListItem>
         ))}
+          <ListItem disablePadding>
+            <ListItemButton onClick={handleLogout}>
+              <ListItemIcon>
+                <Logout />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItemButton>
+          </ListItem>
       </List>
       <Divider />
     </div>
@@ -76,7 +93,6 @@ function ResponsiveDrawer(props) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             My Expenses
           </Typography>
-          <Avatar alt="Cindy Baker" src="https://mui.com/static/images/avatar/3.jpg" />
         </Toolbar>
       </AppBar>
       <Box

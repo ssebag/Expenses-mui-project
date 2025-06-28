@@ -20,11 +20,6 @@ export const Items = [
       title: "Settings",
       path: "/",
       icon: Settings
-    },
-    {
-      title: "Logout",
-      path: "/",
-      icon: Logout
-    },
+    }
 ];
   
