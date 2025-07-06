@@ -1,16 +1,51 @@
 import { Box, Paper, Typography, IconButton } from '@mui/material'
-import React, { useState, useEffect } from 'react'
 import { Close } from '@mui/icons-material'
+import { db, auth } from "../firebase";
+import React, { useEffect, useState } from "react";
+import { collection, query, where, onSnapshot, deleteDoc, doc } from "firebase/firestore";
 
 export default function Home() {
-  const [data, setdata] = useState([]);
-  let totalPrice = 0
+  /* for delete */
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "things", id));
+      console.log("Deleted successfully");
+    } catch (err) {
+      console.error("Error deleting document: ", err);
+    }
+  };
+
+
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+
   useEffect(() => {
-    fetch("https://phrygian-silky-observation.glitch.me/myData")
-    .then((res)=> res.json())
-    .then((data) => setdata(data));
-  }, [data])
-  
+    const user = auth.currentUser;
+    if (!user) {
+      console.log("No user logged in.");
+      return;
+    }
+
+    const q = query(
+      collection(db, "things"),
+      where("userId", "==", user.uid)
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const items = [];
+      let sum = 0;
+
+      snapshot.forEach((doc) => {
+        items.push({ id: doc.id, ...doc.data() });
+        sum += doc.data().price;
+      });
+
+      setProducts(items);
+      setTotal(sum);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   return (
     <Box 
       sx={{display: 'flex',
@@ -20,8 +55,8 @@ export default function Home() {
       gap: '20px'}}
     >
     {
-      data.map((item)=>{
-         totalPrice +=  item.price;
+      products.map((item)=>{
+       
         return(
           <Paper
           key={item.id}
@@ -34,22 +69,20 @@ export default function Home() {
         }}>
           <Typography variant="p" color="initial">{item.title}</Typography>
           <Typography variant="p" color="initial">{item.price}</Typography>
-          <IconButton onClick={()=>{
-            fetch(`https://phrygian-silky-observation.glitch.me/myData/${item.id}`, {method:"DELETE"})
-          }} aria-label="close"
+           <IconButton onClick={()=> handleDelete(item.id)} aria-label="close"
              sx={{
               position: 'absolute',
               top: '10px',
               right: '15px'
             }}>
             <Close />
-          </IconButton>
+          </IconButton> 
         </Paper>
         );
       })
     }
     <Typography variant="h6" color="initial">
-      You Spend <span style={{marginRight: '10px'}}>&#128073;</span> ${totalPrice}
+      You Spend <span style={{marginRight: '10px'}}>&#128073;</span> ${total}
     </Typography>
     </Box>
 
