@@ -60,7 +60,12 @@ export default function Home() {
         return(
           <Paper
           key={item.id}
-          sx={{ width: '400px', padding: '30px 0',
+          sx={{
+          width: {
+            xs: '92%',
+            sm: '400px'
+          },
+          padding: '30px 0',
           borderRadius: '5px',
           boxShadow: '1px 4px 5px 3px gray',
           display: 'flex',
